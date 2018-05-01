@@ -1,0 +1,16 @@
+{
+  "name": "musicapp",
+  "version": "1.0.0",
+  "description": "musicplayerapplication",
+  "main": "server.js",
+  "scripts": {
+    "test": "show",
+    "start": "node server.js"
+  },
+  "author": "Steve Andrews",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "musicmetadata": "^2.0.5"
+  }
+}
