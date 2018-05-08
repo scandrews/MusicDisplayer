@@ -107,13 +107,13 @@ var Main = React.createClass({
 
 
 
-  // Here we render the function
+  // Render the MetaData
   render: function() {
     return (
       <div className="container">
         <div className="row">
           <div className="jumbotron">
-            <h2 className="text-center">Steve's Spin Scrape Mongo Database Page</h2>
+            <h2 className="text-center">Music Meta Data</h2>
           </div>
 
           <div className="col-md-10">
