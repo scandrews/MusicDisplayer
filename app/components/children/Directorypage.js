@@ -34,7 +34,9 @@ var Directorypage = React.createClass({
     var folderLength = folderToGet.length;
     console.log(folderLength);
 
-    if (folderToGet.substring(folderLength-5) === "flac"){
+    var fileType = ""
+    if (folderToGet.substring(folderLength-5) === ".flac"){
+      fileType = "music";
       console.log("it's a flac file");
       }
     var fileExtension = folderToGet.substring(folderLength-4);
@@ -42,18 +44,19 @@ var Directorypage = React.createClass({
     switch (fileExtension){
       case ".mp3":
         console.log ("it's an mp3")
+        fileType = "music";
         break;
       case ".jpg":
         console.log ("it's a pic")
         break
     };
 
-
     var locationOfPeriod = folderToGet.indexOf(".");
     console.log(locationOfPeriod);
     if (locationOfPeriod === -1){
       console.log("It's a folder!");
-      this.props.setTerm( "getDirContent", "/" + folderToGet);
+      console.log(this.props);
+      this.props.setTerm( "getDirContent", this.props.currentPath + "/" + folderToGet);
 
     } else if (locationOfPeriod === folderLength-2||locationOfPeriod === folderLength-3||locationOfPeriod === folderLength-4||locationOfPeriod === folderLength-5) {
         console.log("It's a file!");

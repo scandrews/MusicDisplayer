@@ -25,7 +25,7 @@ var Metapage = React.createClass({
   },
  
 
-  // Here we describe this component's render method
+  // Render meta data
   render: function() {
     console.log("in Metapage render");
     console.log(this);
@@ -43,9 +43,9 @@ var Metapage = React.createClass({
             <div className="panel-body">
 
                 <p>Song Title - {this.props.metaData.title}</p>
-                <p>Album Artist - {this.props.metaData.artist}</p>
                 <p>Album Name - {this.props.metaData.album}</p>
                 <p>Album Year - {this.props.metaData.year}</p>
+                <p>Album Artist - {this.props.metaData.artist}</p>
                 <p>Track - {this.props.metaData.track.no}</p>
                 <p>Genre - {this.props.metaData.genre}</p>
 

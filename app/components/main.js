@@ -81,7 +81,7 @@ var Main = React.createClass({
             }.bind(this));
         } else if (this.state.whatToDo === "getDirContent"){
           // concatenate the new folder onto the current path
-          var newFolderToGet = this.state.currentPath + this.state.folder;
+          var newFolderToGet = this.state.folder;
           console.log(newFolderToGet);
           helpers.getDirContents(newFolderToGet).then(function(response){
             console.log("in main - get dir contents - back from helpers");
@@ -113,7 +113,7 @@ var Main = React.createClass({
   },
 
 
-  // This function allows childrens to update the parent.
+  // This function allows children to update the parent.
   setTerm: function(input, index) {
     console.log("in main at setTerm");
     console.log(input, index);
@@ -140,7 +140,7 @@ var Main = React.createClass({
 
         <div className="row">
           <div className="col-md-6">
-            <DirectoryPage setTerm={this.setTerm} folder={this.state.folderList} />
+            <DirectoryPage setTerm={this.setTerm} folder={this.state.folderList} currentPath={this.state.currentPath}/>
           </div>
           <div className="col-md-4">
             <Metapage setTerm={this.setTerm} metaData={this.state.metaData} />

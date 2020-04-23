@@ -15,12 +15,6 @@ var Startpage = React.createClass({
               currentPath: "C:/Users/Steve/music" };
   },
 
-  // handle user input
-  handleChange: function(event) {
-    console.log("in start page - handle change");
-    this.setState({ term: event.target.value });
-  },
-
   // handle show saved articles
   handleShowSaved: function() {
     console.log("in startpage handle show saved");
@@ -43,45 +37,65 @@ var Startpage = React.createClass({
     console.log (this.state);
     console.log (this.state.currentPath);
 
-    this.props.setTerm( "getDirContent", "");
+    this.props.setTerm( "getDirContent", this.state.currentPath);
   },
 
   handlePathChange: function(event) {
-    var newState={};
-    newState[event.target.id] = event.target.value;
-    this.setState(newState);
+    console.log("got the handle path change click");
+    var newPath = {};
+    newPath = this.state.currentPath + event.target.value;
+    this.setTerm( "getDirContent", newPath);
   },
 
+  // handle user input
+  handleChange: function(event) {
+    console.log("in start page - handle change");
+    this.setState({ currentPath: event.target.value });
+  },
+
+  componentWillReceiveProps(props) {
+    this.setState({ currentPath: props.currentPath});
+  },
   
   // Here is the component render method
   render: function() {
     console.log("In start page render");
     console.log(this);
-    console.log(this.props.currentPath);
+    console.log(this.state.currentPath);
+
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title text-center">File Name</h3>
+          <h3 className="panel-title text-center">Current Folder</h3>
         </div>
         <div className="panel-body text-center">
           <div className="row">
 
-              <form onSubmit={this.handleShowDirectoryContent}>
+              <form onSubmit={this.handlePathChange}>
+
+                <div>
+                  <input  type="text"
+                          value = {this.state.currentPath}
+                          className="form-control"
+                          id="currentPath"
+                          onChange={this.handleChange}
+                          required
+                  />
+                </div>
 
                 <div>
                   <button onClick={this.handleGetMetaData} className="btn btn-primary btn-lg">Get Meta Data</button>
                   <button onClick={this.handleShowDirectoryContent} type="submit" id="button" className="btn btn-primary btn-lg"> Show Directory Contents</button>
 
-                  <p className=""><strong>File Location</strong></p>
 
-                    <input
-                      type="text"
-                      value = {this.props.currentPath}
-                      className="form-control"
-                      id="initialPath"
-                      onChange={this.handlePathChange}
-                      />
-
+{/*<label for="basic-url">Your vanity URL</label>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+  </div>
+  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+</div>
+*/}
                 </div>
 
               </form>

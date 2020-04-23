@@ -8,7 +8,10 @@ The album is assumed to occupy a single folder
 
 *********************
 
-This version implements the React front end in a limited way, but does display the metadata 
+This version implements the React front end
+The contents of a directory are displayed and if a file is clicked the meta data is displayed
+the back button moves to the directory above the current
+the current path is displayed 
 
 *********************
 
