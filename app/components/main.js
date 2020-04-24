@@ -6,13 +6,12 @@ var Link = require("react-router").Link;
 // Include the children
 var Startpage = require("./children/Startpage");
 var Metapage = require("./children/Metapage");
-// var Savedpage = require("./children/Savedpage");
 var DirectoryPage = require("./children/DirectoryPage");
 
-// the routes will be in the helpers file
+// routes for the helpers file
 var helpers = require("./utils/helpers");
 
-// Creating the Main component
+// Create the Main component
 var Main = React.createClass({
 
   // Set the initial state
@@ -34,30 +33,7 @@ var Main = React.createClass({
         console.log(this.state.whatToDo);
         console.log(this.state.folder);
 
-        if (this.state.whatToDo === "showSaved"){
-            // Get saved articles
-            helpers.getSavedArticles().then(function(savedArticles){
-              console.log("in main component did update - showsaved - we got the saved articles");
-              console.log(savedArticles);
-              console.log(savedArticles.data);
-              this.setState({ savedArticles: savedArticles.data, whatToDo: "dont" })
-            }.bind(this))
-        } else if (this.state.whatToDo === "delete"){
-            // delete article
-            console.log("in main delete");
-            console.log(this.state.whatToDo);
-            helpers.postDeleteArticle(this.state.savedArticles[this.state.indexOfArticles]._id).then(function(){
-                console.log("in main, back from the delete");
-                // After we've done the post delete get the updated articles
-                helpers.getSavedArticles().then(function(response) {
-                  console.log("saved Articles");
-                  console.log(response.data);
-                  this.setState({ savedArticles: response.data, whatToDo: "done"});
-                }.bind(this));
-            }.bind(this));
-
-            // get meta data
-        } else if (this.state.whatToDo === "getMetaData"){
+      if (this.state.whatToDo === "getMetaData"){
             console.log("in main get meta data");
             console.log(this.state.folder);
             console.log(this.state.currentPath);
@@ -67,44 +43,32 @@ var Main = React.createClass({
               this.setState({ metaData: response.data, whatToDo: "dont" });
             }.bind(this));
 
-        } else if (this.state.whatToDo === "update"){
-            // Save an article to the database
-            helpers.postIndexToSave(this.state.indexOfArticles).then(function() {
-              console.log("Updated!");
-
-                // After we've done the post... then get the updated history
-                helpers.getSavedArticles().then(function(response) {
-                  console.log("saved Articles");
-                  console.log(response.data);
-                  this.setState({ savedArticles: response.data, whatToDo: "done"});
-                }.bind(this));
-            }.bind(this));
         } else if (this.state.whatToDo === "getDirContent"){
-          // concatenate the new folder onto the current path
-          var newFolderToGet = this.state.folder;
-          console.log(newFolderToGet);
-          helpers.getDirContents(newFolderToGet).then(function(response){
-            console.log("in main - get dir contents - back from helpers");
-            console.log(response);
-            console.log(this.state);
-            var folderToGet = this.state.currentPath + response.data;
-            this.setState({ currentPath:newFolderToGet, folderList: response.data, whatToDo: "done"});
-          }.bind(this));
+            var newFolderToGet = this.state.folder;
+            console.log(newFolderToGet);
+            helpers.getDirContents(newFolderToGet).then(function(response){
+              console.log("in main - get dir contents - back from helpers");
+              console.log(response);
+              console.log(this.state);
+              var folderToGet = this.state.currentPath + response.data;
+              this.setState({ currentPath:newFolderToGet, folderList: response.data, whatToDo: "done"});
+            }.bind(this));
+
         } else if (this.state.whatToDo === "backOneFolder"){
-          console.log("in main - back one folder");
-          console.log(this.state.currentPath);
-          var tempFolder = this.state.currentPath.split("/");
-          console.log(tempFolder);
-          var yetAnotherFolderToGet = tempFolder[0];
-          for (var i = 1; i<tempFolder.length-1; i++){
-            yetAnotherFolderToGet = yetAnotherFolderToGet + "/" +tempFolder[i]
-          };
-          console.log(yetAnotherFolderToGet);
-          helpers.getDirContents( yetAnotherFolderToGet ).then(function(response){
-            console.log("in main back one folder back from helpers");
-            console.log(response);
-            this.setState({ currentPath:yetAnotherFolderToGet, folderList: response.data, whatToDo: "done"});
-          }.bind(this));
+            console.log("in main - back one folder");
+            console.log(this.state.currentPath);
+            var tempFolder = this.state.currentPath.split("/");
+            console.log(tempFolder);
+            var yetAnotherFolderToGet = tempFolder[0];
+            for (var i = 1; i<tempFolder.length-1; i++){
+                yetAnotherFolderToGet = yetAnotherFolderToGet + "/" +tempFolder[i]
+            };
+            console.log(yetAnotherFolderToGet);
+            helpers.getDirContents( yetAnotherFolderToGet ).then(function(response){
+              console.log("in main back one folder back from helpers");
+              console.log(response);
+              this.setState({ currentPath:yetAnotherFolderToGet, folderList: response.data, whatToDo: "done"});
+            }.bind(this));
 
         } else if (this.state.whatToDo === "done"){
           console.log("got the done");
@@ -122,7 +86,7 @@ var Main = React.createClass({
   },
 
 
-  // Here we render the function
+  // Render main - the page heading
   render: function() {
     console.log("in Main render");
     console.log(this.state);

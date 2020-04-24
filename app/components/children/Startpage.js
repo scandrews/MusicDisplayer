@@ -2,7 +2,8 @@
 var React = require("react");
 var Link = require("react-router").Link;
 
-// var initialPath = "C:/Users/Steve/music";
+// set the path on startup 
+var initialPath = "C:/Users/Steve/music";
 
 // object to export
 var Startpage = React.createClass({
@@ -12,22 +13,7 @@ var Startpage = React.createClass({
     console.log("In start page set initial state");
     console.log(this);
     return {  term: "",
-              currentPath: "C:/Users/Steve/music" };
-  },
-
-  // handle show saved articles
-  handleShowSaved: function() {
-    console.log("in startpage handle show saved");
-    // Set the parent to have the search term
-    this.props.setTerm("showSaved", 0);
-    console.log("between the two sets in handle show saved");
-  },
-  
-  // handle the scrape new button
-  handleGetMetaData: function(event) {
-    console.log("in start page, handle get meta data");
-    // Set the parent to have the search term
-    this.props.setTerm( "getMetaData", 0 );
+              currentPath: initialPath };
   },
 
   //hande the show directory contect button
@@ -57,7 +43,8 @@ var Startpage = React.createClass({
     this.setState({ currentPath: props.currentPath});
   },
   
-  // Here is the component render method
+  // The second second section of the page
+  // showing the current path and the button to get the dir content
   render: function() {
     console.log("In start page render");
     console.log(this);
@@ -84,18 +71,7 @@ var Startpage = React.createClass({
                 </div>
 
                 <div>
-                  <button onClick={this.handleGetMetaData} className="btn btn-primary btn-lg">Get Meta Data</button>
                   <button onClick={this.handleShowDirectoryContent} type="submit" id="button" className="btn btn-primary btn-lg"> Show Directory Contents</button>
-
-
-{/*<label for="basic-url">Your vanity URL</label>
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-  </div>
-  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-</div>
-*/}
                 </div>
 
               </form>

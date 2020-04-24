@@ -2,7 +2,7 @@
 var React = require("react");
 const path = require('path');
 
-// block at lower part of screen for scraped stories
+// block at lower part of screen for file or directory list
 var Directorypage = React.createClass({
 
   // handle the show album button
@@ -74,7 +74,7 @@ var Directorypage = React.createClass({
   },
 
 
-  // Here we describe this component's render method
+  // Show component
   render: function() {
     console.log("in Directorypage render");
     console.log(this);
@@ -131,5 +131,5 @@ var Directorypage = React.createClass({
 // end Directorypage
 });
 
-// Export the component for use in other files
+// Export the component
 module.exports = Directorypage;

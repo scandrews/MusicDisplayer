@@ -5,24 +5,21 @@ var React = require("react");
 var Metapage = React.createClass({
 
   // handle the show metadata button
-  handleButtonClick: function(event) {
-    // var indexOfCurrentArticle = $( ".saveNews" ).index( this );
-    console.log("got the save click");
-    event.preventDefault()
-    console.log(event.dispatchMarker);
+//  handleButtonClick: function(event) {
+//    console.log("got the save click");
+//    event.preventDefault()
+//    console.log(event.dispatchMarker);
 
-    var indexOfCurrentArticle = event.dispatchMarker.split(".");
-    var indexOfCurrentArticle = indexOfCurrentArticle[5];
+//    var indexOfCurrentFile = event.dispatchMarker.split(".");
+//    var indexOfCurrentFile = indexOfCurrentFile[5];
     // remove leading $ if there
-    if (indexOfCurrentArticle.substring(0, 1) == '$') { 
-      indexOfCurrentArticle = indexOfCurrentArticle.substring(1);
-    };
-    // indexOfCurrentArticle = indexOfCurrentArticle.split(".");
-    // var indexOfCurrentArticle = React.findDOMNode(this.data-reactid);
-    console.log("value - " + indexOfCurrentArticle);
-    console.log(this.props);
-    this.props.setTerm( "getMetaData", indexOfCurrentArticle);
-  },
+//    if (indexOfCurrentFile.substring(0, 1) == '$') { 
+//      indexOfCurrentFile = indexOfCurrentFile.substring(1);
+//    };
+//    console.log("value - " + indexOfCurrentFile);
+//    console.log(this.props);
+//    this.props.setTerm( "getMetaData", indexOfCurrentFile);
+//  },
  
 
   // Render meta data

@@ -8,7 +8,6 @@ var helper = {
 	getMetaData: function(dirToGet) {
 		console.log("in helpers get metadata");
 		console.log(dirToGet);
-//		var musicFile = ("C:/users/steve/Music/151126/Jeff Beck/You Had It Coming/08 - Left Hook.flac");
 		return axios.post("/metaData", {albumToGet: dirToGet});
 	},
 
@@ -19,32 +18,8 @@ var helper = {
 		return axios.post("/postDirContent", { directoryToGet  : dirToGet});
 	},
 
-	
-	// This route gets the scraped articles
-	// getScrape: function() {
-	//	return axios.get("/api");
-	// },
-
-	// This function posts new articles to save to the database.
-	postIndexToSave: function(articleIndex) {
-		console.log("in helpers post Index to save");
-		console.log(articleIndex);
-		return axios.post("/metaData", { articleIndex: articleIndex });
-	},
-
-	getSavedArticles(saved){
-		console.log("in helpers - get saved articles");
-		return axios.get("/saved");
-	},
-
-	postDeleteArticle(deleteId){
-		console.log("in helpers - post delete articles");
-		console.log(deleteId);
-		return axios.post("/delete", { deleteIndex: deleteId });
-	}
-
 // end helper
 };
 
-// We export the API helper
+// export the module
 module.exports = helper;

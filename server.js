@@ -1,18 +1,11 @@
-// Music Displayer react based web scrape mongo - server
+// Music Displayer react based - server
 // Include Server Dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
-//var mongoose = require("mongoose");
 var fs = require('fs');
 var mm = require('musicmetadata');
 
-
-// Require Article Schema
-//var Article = require("./models/Article");
-
-// for the scraper
-var cheerio = require("cheerio");
 var request = require("request");
 
 // Create Instance of Express
@@ -31,29 +24,6 @@ app.use(express.static("public"));
 
 // -------------------------------------------------
 
-// MongoDB configuration
-// mongoose.connect("mongodb://localhost/reactwebscrapemongoose");
-
-//mongoose.connect("mongodb://heroku_s996b6xz:772kikq8l69079rp7tm7aq0dr5@ds149134.mlab.com:49134/heroku_s996b6xz");
-
-//var db = mongoose.connection;
-
-//db.on("error", function(err) {
-//  console.log("Mongoose Error: ", err);
-//});
-
-//db.once("open", function() {
-//  console.log("Mongoose connection successful.");
-//});
-
-// global variable for the scaraped unsaved articles
-var arrayOfArticles = [];
-// global variable for the current path
-var currentPath = "";
-
-
-// -------------------------------------------------
-
 // Main Route
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/public/index.html");
@@ -66,12 +36,11 @@ app.post("/metaData", function (req, res){
 
   var musicFile = req.body.albumToGet;
   console.log(musicFile);
-  currentPath = musicFile;
+//  currentPath = musicFile;
 
   // read and display the medadata from the music file
   var parser = mm(fs.createReadStream(musicFile), function (err, metadata) {
     if (err) console.log("error reading file");
-    console.log("the 3/27/19 ver");
     metadata.fileName = musicFile;
     console.log(metadata);
   res.send(metadata)
@@ -84,104 +53,16 @@ app.post("/postDirContent", function (req, res){
 
   var dirName = (req.body.directoryToGet);
   console.log(dirName);
-  currentPath = dirName;
 
   fs.readdir(dirName, function(err, items) {
     console.log(items);
     res.send(items)
+  });
 });
-});
-
-// route to scrape new articles
-app.get("/api", function(req, res) {
-    console.log("we got the get/api do a scrape");
-    // get the HTML body from the spin.com
-    request("http://www.spin.com", function(error, response, html) {
-      // Load into cheerio and save it to a variable
-      var $ = cheerio.load(html);
-      // clear the array before we load new articles
-      arrayOfArticles = [];
-      // Select each element in the HTML body
-      $(".preview-holder").each(function(i, element) {
-
-        var link = $(element).children().attr("href");
-        var title = $(element).children("a").text();
-
-        // Save to an object and push an array
-        // the key will be used to reference the article
-//        arrayOfArticles.push({
-//          title: title,
-//          link: link,
-//          key: i
-//        });
-      });
-
-      // Log the arrayOfArticles
-      console.log(arrayOfArticles);
-      res.send(arrayOfArticles);
-    });
-});
-
-// This route handles requests to save an article
-//app.post("/api", function(req, res) {
-//  console.log("BODY: ");
-//  console.log(req.body.articleIndex);
-
-  // Save the article based using the index returned from the click
-//  Article.create({
-//    title: arrayOfArticles[req.body.articleIndex].title,
-//    link: arrayOfArticles[req.body.articleIndex].link,
-//    date: Date.now()
-//  }, function(err) {
-//    if (err) {
-//      console.log(err);
-//    }
-//    else {
-//      res.send("Saved Search");
-//    }
-//  });
-//});
-
-
-  // var newArticle = new Article(req.body);
-  // newArticle.save(function(err, doc){
-  //   if (err) {
-  //     console.log(err);
-  //   }else {
-  //     res.send(doc);
-  //   }
-  // })
-
-// This route gets the saved articles
-//app.get("/saved", function(req, res){
-//  Article.find({ }, function(err, articles) {
-//    if (err) {
-//      console.log(err);
-//    }
-//    else {
-//      res.send(articles);
-//    };
-//  });
-//});
-
-// this route deletes an article apecified by id
-//app.post("/delete", function(req, res){
-//  console.log("here in the delete route");
-//  console.log(req.body);
-//  Article.findByIdAndRemove( req.body.deleteIndex, function(err){
-//    if (err) {
-//      console.log(err);
-//    }
-//    else {
-//      res.send("deleted the article");
-//    };
-//  })
-//});
 
 app.get("*", function(req, res){
   res.sendFile(__dirname)
 });
-
 
 // -------------------------------------------------
 
